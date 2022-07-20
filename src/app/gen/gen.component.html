@@ -1,0 +1,71 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+<body>
+    <br>
+    <br>
+    <br>
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" 
+        id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Month
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" (click)="all()">All</a>
+          <a class="dropdown-item" (click)="jan()">January</a>
+          <a class="dropdown-item" (click)="feb()">February</a>
+          <a class="dropdown-item" (click)="mar()">March</a>
+          <a class="dropdown-item" (click)="apr()">April</a>
+          <a class="dropdown-item" (click)="may()">May</a>
+          <a class="dropdown-item" (click)="jun()">June</a>
+          <a class="dropdown-item" (click)="jul()">July</a>
+          <a class="dropdown-item" (click)="aug()">August</a>
+          <a class="dropdown-item" (click)="sept()">September</a>
+          <a class="dropdown-item" (click)="oct()">October</a>
+          <a class="dropdown-item" (click)="nov()">November</a>
+          <a class="dropdown-item" (click)="dec()">December</a>
+        </div>
+      </div>
+
+      <br>
+      <br>
+      <br>
+    <table border="2" mdbTable class="tab">
+        <thead class="black white-text">
+        <tr style="font-size: 25px;">
+            <th>Date</th>
+            <th>name</th>
+            <th>Description</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+        <tr mdbTableCol *ngFor="let expn of curlist;let indexofelement=index">
+            <td><input  [disabled]="expn.btn" type="date" [(ngModel)]="expn.date" text value={{expn.date}}></td>
+          <td><input [disabled]="expn.btn" type="text" [(ngModel)]="expn.name" text value={{expn.name}}></td>
+          <td><input [disabled]="expn.btn" type="text" [(ngModel)]="expn.desc" text value={{expn.desc}}></td>
+          <td><input [disabled]="expn.btn" type="number" [(ngModel)]="expn.amount" text value={{expn.amount}}></td>
+          <td><span>&nbsp;&nbsp;</span><button class="btn btn-danger btn-sm" *ngIf="expn.btn" (click)="setsave(expn,indexofelement)">Update</button>
+              <button *ngIf="!expn.btn" class="btn btn-success btn-sm" (click)="saveexp(expn,indexofelement)">Save</button>
+          </td>
+          <!-- <td><button (click)="deleteexpense(expn.expid)">Delete</button></td> -->
+          <td><span>&nbsp;&nbsp;</span><i (click)="deleteexpense(expn._id)" class="fa fa-close" style="font-size:28px;color:black"></i></td>
+        </tr>
+        <tr *ngIf="newslot">
+            <td><span style="color: crimson;" >*</span><input type="date" [(ngModel)]="exp.date" text value={{exp.date}} class="textbox"></td>
+            <td><span style="color: crimson;" >*</span><input type="text" [(ngModel)]="exp.name" text value={{exp.name}} class="textbox"></td>
+            <td><span style="color: crimson;" >*</span><input type="text" [(ngModel)]="exp.desc" text value={{exp.desc}} class="textbox"></td>
+            <td><span style="color: crimson;" >*</span><input type="number" [(ngModel)]="exp.amount" text value={{exp.amount}} class="textbox"></td>
+            <td><span>&nbsp;&nbsp;</span><button class="btn btn-success btn-sm" (click)="addexpense()">save</button></td>
+            <td><span>&nbsp;&nbsp;</span><i (click)="cancel()" class="fa fa-close" style="font-size:28px;color:black"></i></td>
+        </tr>
+        <br>
+        <button class="btn btn-primary btn-sm" *ngIf="!newslot"(click)="addslot()">ADD EXPENSE</button>
+        <br>
+        <br>
+    </table>
+        <br>
+        <button class="btn btn-warning btn-sm" (click)="calctot()">Total Amount Spent</button>&nbsp;&nbsp;<b>:</b>&nbsp;&nbsp;<b>{{total}}</b>
+    <br>
+    <br>
+    <br>
+</body>

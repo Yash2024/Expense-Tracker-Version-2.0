@@ -1,0 +1,23 @@
+.description
+{
+    text-align: center;
+    font-size: 20px;
+    margin-left: 265px;
+    width: 1000px;
+    border: 20px solid black;
+}
+
+   @media screen and (max-width:600px) {
+    .description
+    {
+        text-align: center;
+        font-size: 20px;
+        margin-left: 0px;
+        width: auto;
+        border: 20px solid black;
+    }
+
+  .tab{
+      width: 1000px;
+  }
+  } 
