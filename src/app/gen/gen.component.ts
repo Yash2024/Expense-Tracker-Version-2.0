@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { expense } from '../expense.model';
 import { ExpServiceService } from '../services/exp-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gen',
@@ -10,20 +11,23 @@ import { ExpServiceService } from '../services/exp-service.service';
 })
 export class GenComponent implements OnInit {
  
+  logtog: boolean = true;
   explist : expense[]=[];
   exp : expense = {_id:"",date:"",name:"",desc:"",amount: 0,btn: true,userId: ""};
   total: number=0;
   curlist: expense[]=[]
   curmonth: number[]=[1,0,0,0,0,0,0,0,0,0,0,0,0];
   curuser: string | null ="";
-  constructor( private service : ExpServiceService) { }
+  month: string | null = "All Months";
+  constructor( private service : ExpServiceService, private router: Router) { }
 
   ngOnInit(): void {
     this.curuser = localStorage.getItem("user");
-    // console.log(this.curuser);
+    console.log(this.curuser);
     if(this.curuser === null || this.curuser === "")
     {
       alert("Please Login To your Account");
+      this.router.navigate(['login']);
     } 
     else{
     this.service.getexplist().subscribe((res)=>{
@@ -131,7 +135,10 @@ export class GenComponent implements OnInit {
   addslot() {
     this.newslot = true;
   }
-
+  logout(){
+    localStorage.setItem("user","");
+    localStorage.setItem("token","");
+  }
   addexpense() {
 
     var expd = Object.assign({}, this.exp);
@@ -199,11 +206,12 @@ export class GenComponent implements OnInit {
   }
 
   all(){
+    this.month="All Months";
     this.curmonth = [1,0,0,0,0,0,0,0,0,0,0,0,0];
     this.curlist=[];
     let array = this.explist;
     for (let i = 0; i < array.length; i++) {
-      if ( array[i].userId == this.curuser) {
+      if ( array[i].userId === this.curuser) {
         this.curlist.push(array[i]);
       }
     }
@@ -212,6 +220,7 @@ export class GenComponent implements OnInit {
     this.calctot();
   }
   jan(){
+    this.month="January";
     this.curlist=[];
     this.curmonth = [0,1,0,0,0,0,0,0,0,0,0,0,0];
     let array = this.explist;
@@ -224,6 +233,7 @@ export class GenComponent implements OnInit {
     this.calctot();
   }
   feb(){
+    this.month="February";
     this.curlist=[];
     this.curmonth = [0,0,1,0,0,0,0,0,0,0,0,0,0];
     let array = this.explist;
@@ -236,6 +246,7 @@ export class GenComponent implements OnInit {
     this.calctot();
   }
   mar(){
+    this.month="March";
     this.curlist=[];
     this.curmonth = [0,0,0,1,0,0,0,0,0,0,0,0,0];
     let array = this.explist;
@@ -248,6 +259,7 @@ export class GenComponent implements OnInit {
     this.calctot();
   }
   apr(){
+    this.month="April";
     this.curlist=[];
     this.curmonth = [0,0,0,0,1,0,0,0,0,0,0,0,0];
     let array = this.explist;
@@ -260,6 +272,7 @@ export class GenComponent implements OnInit {
     this.calctot();
   }
   may(){
+    this.month="May";
     this.curlist=[];
     this.curmonth = [0,0,0,0,0,1,0,0,0,0,0,0,0];
     let array = this.explist;
@@ -272,6 +285,7 @@ export class GenComponent implements OnInit {
     this.calctot();
   }
   jun(){
+    this.month="June";
     this.curlist=[];
     this.curmonth = [0,0,0,0,0,0,1,0,0,0,0,0,0];
     let array = this.explist;
@@ -284,6 +298,7 @@ export class GenComponent implements OnInit {
     this.calctot();
   }
   jul(){
+    this.month="July";
     this.curlist=[];
     this.curmonth = [0,0,0,0,0,0,0,1,0,0,0,0,0];
     let array = this.explist;
@@ -296,6 +311,7 @@ export class GenComponent implements OnInit {
     this.calctot();
   }
   aug(){
+    this.month="August";
     this.curlist=[];
     this.curmonth = [0,0,0,0,0,0,0,0,1,0,0,0,0];
     let array = this.explist;
@@ -308,6 +324,7 @@ export class GenComponent implements OnInit {
     this.calctot();
   }
   sept(){
+    this.month="September";
     this.curlist=[];
     this.curmonth = [0,0,0,0,0,0,0,0,0,1,0,0,0];
     let array = this.explist;
@@ -320,6 +337,7 @@ export class GenComponent implements OnInit {
     this.calctot();
   }
   oct(){
+    this.month="October";
     this.curlist=[];
     this.curmonth = [0,0,0,0,0,0,0,0,0,0,1,0,0];
     let array = this.explist;
@@ -332,6 +350,7 @@ export class GenComponent implements OnInit {
     this.calctot();
   }
   nov(){
+    this.month="November";
     this.curlist=[];
     this.curmonth = [0,0,0,0,0,0,0,0,0,0,0,1,0];
     let array = this.explist;
@@ -344,6 +363,7 @@ export class GenComponent implements OnInit {
     this.calctot();
   }
   dec(){
+    this.month="December";
     this.curlist=[];
     this.curmonth = [0,0,0,0,0,0,0,0,0,0,0,0,1];
     let array = this.explist;

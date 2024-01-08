@@ -19,9 +19,13 @@ export class LoginComponent implements OnInit {
   id: string = "";
   mess: string = "";
 
+  logtog: string="false";
+  
+
  showPassword: boolean = false;
 
   ngOnInit(): void {
+    localStorage.setItem("logtog", "false");
   }
 
   signin() {
@@ -39,6 +43,7 @@ export class LoginComponent implements OnInit {
       alert(res.message);
       localStorage.setItem("token", res.token);
       localStorage.setItem("user", res._id);
+      localStorage.setItem("logtog", "true");
       this.router.navigate(['home']);
 
     }, (error: HttpErrorResponse) => {
@@ -49,6 +54,7 @@ export class LoginComponent implements OnInit {
   }
 
   goto() {
+    localStorage.setItem("logtog", this.logtog);
     this.router.navigate(['signup']);
   }
 

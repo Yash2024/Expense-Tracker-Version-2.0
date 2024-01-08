@@ -1,3 +1,4 @@
+import { LowerCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,8 +9,22 @@ import { Component, OnInit } from '@angular/core';
 export class AboutComponent implements OnInit {
 
   constructor() { }
-
+logtog: string|null = "";
+check: boolean=true;
   ngOnInit(): void {
+    this.logtog=localStorage.getItem("logtog");
+    if(this.logtog==="false")
+    {
+      this.check=false;
+    }
+    else
+    {
+      this.check=true;
+    }
   }
-
+logout(){
+  localStorage.setItem("user","");
+  localStorage.setItem("token","");
+  localStorage.setItem("logtog","");
+}
 }
